@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbps4uyc14imj" path="res://convert.gd" id="1_gih14"]
 [ext_resource type="Theme" uid="uid://dk5gur85t661f" path="res://Defaults.tres" id="2_bypvw"]
+[ext_resource type="Texture2D" uid="uid://cy5mpnlxfljb0" path="res://gear.png" id="2_dae5x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lg8h"]
 content_margin_left = 0.0
@@ -75,13 +76,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3lg8h")
 
-[node name="ControlBar" type="Panel" parent="." unique_id=732849173]
+[node name="ControlBar" type="PanelContainer" parent="." unique_id=445110249]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 33.725
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gih14")
+
+[node name="Settings" type="Button" parent="ControlBar" unique_id=1765601609]
+layout_mode = 2
+size_flags_horizontal = 8
+offset_transform_scale = Vector2(0.475, 0.475)
+icon = ExtResource("2_dae5x")
+alignment = 2
+
+[node name="Convert" type="Button" parent="ControlBar" unique_id=1998545923]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 40
+text = "Convert"
 
 [node name="Label" type="Label" parent="." unique_id=78067633]
 layout_mode = 1
@@ -210,6 +225,7 @@ step = 0.001
 [node name="Timer" type="Timer" parent="." unique_id=941021969]
 wait_time = 0.2
 
+[connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
 [connection signal="item_selected" from="OutputFile/extensionselector" to="." method="_on_extensionselector_item_selected"]

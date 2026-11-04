@@ -150,3 +150,7 @@ func _on_timer_timeout() -> void:
 
 	var fraction = clampf(float(currentprog) / float(total_duration_us), 0.0, 1.0)
 	progressbar.value = fraction
+
+
+func _on_settings_pressed() -> void:
+	get_tree().change_scene_to_file("res://Settings.tscn")

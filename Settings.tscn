@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dn210s3liqirg"]
+
+[ext_resource type="Texture2D" uid="uid://cy5mpnlxfljb0" path="res://gear.png" id="1_2fv1l"]
+[ext_resource type="Theme" uid="uid://dk5gur85t661f" path="res://Defaults.tres" id="2_mx4kw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37a8j"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.09689999, 0.19, 0.101555, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfvul"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.03750939, 0.09221437, 0.039877687, 1)
+corner_detail = 5
+
+[node name="Control" type="Control" unique_id=1581714445]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CheckButton" type="CheckButton" parent="." unique_id=1031398980]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 24.0
+
+[node name="BG Color" type="Panel" parent="." unique_id=718647599]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_37a8j")
+
+[node name="ControlBar" type="PanelContainer" parent="." unique_id=1879131683]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 33.725
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sfvul")
+
+[node name="Settings" type="Button" parent="ControlBar" unique_id=140864493]
+layout_mode = 2
+size_flags_horizontal = 8
+offset_transform_scale = Vector2(0.475, 0.475)
+icon = ExtResource("1_2fv1l")
+alignment = 2
+
+[node name="Convert" type="Button" parent="ControlBar" unique_id=134280975]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_mx4kw")
+theme_override_font_sizes/font_size = 40
+text = "Convert"
