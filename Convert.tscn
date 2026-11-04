@@ -64,6 +64,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gih14")
 audio_extensions = PackedStringArray("mp3", "wav", "ogg", "aac", "m4a", "mp4", "flac", "oga", "opus", "ac3", "eac3", "wma", "aiff", "aif", "amr", "flv", "mkv", "mka")
+video_extensions = PackedStringArray("mp4", "mkv", "avi", "mov", "flv", "webm", "wmv", "ogv", "m4v", "3gp", "m2ts", "ts", "vob", "f4v", "mxf", "rmvb")
 
 [node name="BG Color" type="Panel" parent="." unique_id=1914869696]
 layout_mode = 1
@@ -207,9 +208,11 @@ max_value = 1.0
 step = 0.001
 
 [node name="Timer" type="Timer" parent="." unique_id=941021969]
+wait_time = 0.2
 
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
 [connection signal="item_selected" from="OutputFile/extensionselector" to="." method="_on_extensionselector_item_selected"]
 [connection signal="file_selected" from="OutputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
 [connection signal="pressed" from="Convert" to="." method="_on_convert_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
