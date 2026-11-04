@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://ihhfrpjtcmt1"]
+
+[ext_resource type="Script" uid="uid://bbps4uyc14imj" path="res://convert.gd" id="1_gih14"]
+[ext_resource type="Theme" uid="uid://dk5gur85t661f" path="res://Defaults.tres" id="2_bypvw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lg8h"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.09689999, 0.19, 0.101555, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gih14"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.03750939, 0.09221437, 0.039877687, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bypvw"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.8039216)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dae5x"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.59607846)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65hhb"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.64510465, 0.24697137, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[node name="Control" type="Control" unique_id=1057882699]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gih14")
+audio_extensions = PackedStringArray("mp3", "wav", "ogg", "aac", "m4a", "mp4", "flac", "oga", "opus", "ac3", "eac3", "wma", "aiff", "aif", "amr", "flv", "mkv", "mka")
+
+[node name="BG Color" type="Panel" parent="." unique_id=1914869696]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3lg8h")
+
+[node name="ControlBar" type="Panel" parent="." unique_id=732849173]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 33.725
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gih14")
+
+[node name="Label" type="Label" parent="." unique_id=78067633]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.5
+offset_top = 68.345
+offset_right = 68.5
+offset_bottom = 123.34505
+grow_horizontal = 2
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 44
+text = "Convert"
+horizontal_alignment = 1
+
+[node name="InputFile" type="PanelContainer" parent="." unique_id=5161154]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 137.79
+offset_top = -108.5
+offset_right = 388.79016
+offset_bottom = 108.5
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bypvw")
+
+[node name="Label2" type="Label" parent="InputFile" unique_id=525174076]
+layout_mode = 2
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 4.23)
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 30
+text = "Input File"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="InputFile" unique_id=1288791594]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 24
+text = "Open File Selector"
+
+[node name="InputFileDialog" type="FileDialog" parent="InputFile" unique_id=1341400136]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="OutputFile" type="PanelContainer" parent="." unique_id=554382554]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -361.08002
+offset_top = -108.5
+offset_right = -110.080444
+offset_bottom = 108.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bypvw")
+
+[node name="Label2" type="Label" parent="OutputFile" unique_id=1718993320]
+layout_mode = 2
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 4.23)
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 30
+text = "Output File"
+horizontal_alignment = 1
+
+[node name="extensionselector" type="OptionButton" parent="OutputFile" unique_id=1046237929]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 24
+
+[node name="InputFileDialog" type="FileDialog" parent="OutputFile" unique_id=1046940972]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="Convert" type="Button" parent="." unique_id=1457867780]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -24.00003
+offset_right = 54.0
+offset_bottom = 24.00003
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 32
+text = "Convert"
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1283692344]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.82999
+offset_top = 141.675
+offset_right = 181.40369
+offset_bottom = 168.67505
+grow_horizontal = 2
+theme = ExtResource("2_bypvw")
+theme_override_styles/background = SubResource("StyleBoxFlat_dae5x")
+theme_override_styles/fill = SubResource("StyleBoxFlat_65hhb")
+max_value = 1.0
+step = 0.001
+
+[node name="Timer" type="Timer" parent="." unique_id=941021969]
+
+[connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
+[connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
+[connection signal="item_selected" from="OutputFile/extensionselector" to="." method="_on_extensionselector_item_selected"]
+[connection signal="file_selected" from="OutputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
+[connection signal="pressed" from="Convert" to="." method="_on_convert_pressed"]

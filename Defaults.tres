@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://dk5gur85t661f"]
+
+[ext_resource type="FontFile" uid="uid://ffpgrfffcbn6" path="res://Riks-Normal.otf" id="1_8rnui"]
+
+[resource]
+default_font = ExtResource("1_8rnui")
