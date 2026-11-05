@@ -161,6 +161,7 @@ access = 2
 use_native_dialog = true
 
 [node name="TextureRect" type="TextureRect" parent="InputFile" unique_id=182439370]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -168,6 +169,11 @@ texture = ExtResource("4_65hhb")
 
 [node name="Label" type="Label" parent="InputFile" unique_id=265426936]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 5.995)
+offset_transform_position_ratio = Vector2(0, 2.445)
+offset_transform_visual_only = false
+theme = ExtResource("2_bypvw")
 horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 5
@@ -208,7 +214,7 @@ use_native_dialog = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("4_65hhb")
+texture = ExtResource("3_x3lue")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="OutputFile" unique_id=1029169400]
 layout_mode = 2
@@ -268,6 +274,20 @@ theme_override_styles/background = SubResource("StyleBoxFlat_dae5x")
 theme_override_styles/fill = SubResource("StyleBoxFlat_65hhb")
 max_value = 1.0
 step = 0.001
+
+[node name="YouWin" type="Button" parent="." unique_id=1117261922]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.95999
+offset_top = 175.5
+offset_right = 79.036865
+offset_bottom = 202.50005
+grow_horizontal = 2
+theme = ExtResource("2_bypvw")
+text = "...Converted Succesfully!"
 
 [node name="Timer" type="Timer" parent="." unique_id=941021969]
 wait_time = 0.2

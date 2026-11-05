@@ -121,20 +121,20 @@ func _on_convert_pressed() -> void:
 
 #long ass name
 func _extensionselector_dynamic_options() -> void:
-	extenstionselector.clear()
+	
 	if (inputfile.get_extension() in audio_extensions) or (inputfile.get_extension() in audio_extensions_weird):
-		for item in audio_extensions:
-			extenstionselector.add_item("." + item)
+		AudioOut = true
 		$InputFile/TextureRect.texture = Audio_Image
 	elif (inputfile.get_extension() in video_extensions) or (inputfile.get_extension() in video_extensions_weird):
-		for item in video_extensions:
-			extenstionselector.add_item("." + item)
+		VideoOut = true
 		$InputFile/TextureRect.texture = Video_Image
 	elif (inputfile.get_extension() in image_extensions) or (inputfile.get_extension() in image_extensions_weird):
-		
+		ImageOut = true
 		$InputFile/TextureRect.texture = Image_Image
 	$InputFile/TextureRect.visible = true
 	$InputFile/Label.text = inputfile.get_file()
+	
+	dynadds()
 
 
 func _on_timer_timeout() -> void:
@@ -195,5 +195,35 @@ func _on_settings_pressed() -> void:
 
 func _on_filetypeselector_item_selected(index: int) -> void:
 	if index == 0:
+		VideoOut = true
+	if index == 1:
+		AudioOut = true
+	if index == 2:
+		ImageOut = true
+	dynadds()
+
+#i sure love how there is no rhyme or reason to how i name anything
+func dynadds():
+	extenstionselector.clear()
+	if VideoOut:
+		for item in video_extensions:
+			extenstionselector.add_item("." + item)
+	if AudioOut:
+		for item in audio_extensions:
+			extenstionselector.add_item("." + item)
+	if ImageOut:
+		for item in image_extensions:
+			extenstionselector.add_item("." + item)
+			
+func _process(delta: float) -> void:
+	if VideoOut:
+		$OutputFile/TextureRect.texture = Video_Image
+	if AudioOut:
+		$OutputFile/TextureRect.texture = Audio_Image
+	if ImageOut:
+		$OutputFile/TextureRect.texture = Image_Image
 		
-		
+
+
+func _on_you_win_pressed() -> void:
+	pass # Replace with function body.
