@@ -16,7 +16,7 @@ var total_duration_us := 0
 var out_path := ""
 var VideoOut = false
 var AudioOut = false
-Var ImageOut = false
+var ImageOut = false
 
 #extension types
 @export var audio_extensions: PackedStringArray
