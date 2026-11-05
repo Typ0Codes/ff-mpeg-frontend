@@ -71,7 +71,14 @@ layout_mode = 2
 
 [node name="WeirdFiles" type="CheckButton" parent="ScrollContainer/VBoxContainer" unique_id=1031398980]
 layout_mode = 2
+tooltip_text = "Allow for uncommenly used filetypes such as .3ga or .psp"
 text = "Allow \"Weird\" Filetypes"
+
+[node name="AutoCompressGifs" type="CheckButton" parent="ScrollContainer/VBoxContainer" unique_id=1371579601]
+layout_mode = 2
+tooltip_text = "Automatically Compress Gifs Unless otherwise specified s"
+text = "Automatically Compress Gifs"
 
 [connection signal="pressed" from="ControlBar/Convert" to="." method="_on_convert_pressed"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/WeirdFiles" to="." method="_on_weird_files_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/AutoCompressGifs" to="." method="_on_auto_compress_gifs_toggled"]

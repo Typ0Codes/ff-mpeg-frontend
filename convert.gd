@@ -52,12 +52,10 @@ func _on_convert_pressed() -> void:
 		push_error("No input file selected")
 		return
 
-	
 	var prog_file_path = progress_path + "progress.txt"
 	if FileAccess.file_exists(prog_file_path):
 		DirAccess.remove_absolute(prog_file_path)
 
-	
 	var probe_output := []
 	OS.execute("ffprobe", [
 		"-v", "error",
@@ -70,8 +68,16 @@ func _on_convert_pressed() -> void:
 		return
 	total_duration_us = int(probe_output[0].strip_edges().to_float() * 1000000.0)
 
-	out_path = outputpath + inputfile.get_file().get_basename() + extension
-	ffmpeg_pid = OS.create_process("ffmpeg", [
+	var real_ext := extension
+	var compressed_gif := false
+	if extension == ".gif" and Globals.CompressGifs:
+		compressed_gif = true
+	elif extension == ".gif (uncompressed)":
+		real_ext = ".gif"
+
+	out_path = outputpath + inputfile.get_file().get_basename() + real_ext
+
+	var args := [
 		"-y",
 		"-nostdin",
 		"-progress", prog_file_path,
@@ -79,8 +85,17 @@ func _on_convert_pressed() -> void:
 		"-nostats",
 		"-loglevel", "error",
 		"-i", inputfile,
-		out_path
-	])
+	]
+
+	if compressed_gif:
+		args.append_array([
+			"-vf", "fps=10,scale=320:-1:flags=lanczos,split[a][b];[a]palettegen[p];[b][p]paletteuse",
+			"-loop", "0",
+		])
+
+	args.append(out_path)
+
+	ffmpeg_pid = OS.create_process("ffmpeg", args)
 	if ffmpeg_pid == -1:
 		push_error("ffmpeg failed to launch")
 		return
@@ -94,10 +109,10 @@ func _on_convert_pressed() -> void:
 
 #long ass name
 func _extensionselector_dynamic_options() -> void:
-	if inputfile.get_extension() in audio_extensions:
+	if (inputfile.get_extension() in audio_extensions) or (inputfile.get_extension() in audio_extensions_weird):
 		for item in audio_extensions:
 			extenstionselector.add_item("." + item)
-	if inputfile.get_extension() in video_extensions:
+	elif (inputfile.get_extension() in video_extensions) or (inputfile.get_extension() in video_extensions_weird):
 		for item in video_extensions:
 			extenstionselector.add_item("." + item)
 

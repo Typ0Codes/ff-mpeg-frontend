@@ -65,8 +65,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gih14")
 audio_extensions = PackedStringArray("mp3", "wav", "ogg", "m4a", "flac")
-video_extensions = PackedStringArray("mp4", "mkv", "mov", "webm", "ogv")
-audio_extensions_weird = PackedStringArray("")
+video_extensions = PackedStringArray("mp4", "mkv", "mov", "webm", "ogv", "gif")
+audio_extensions_weird = PackedStringArray("ac3", "amr", "caf", "dts", "aac", "oga", "opus", "ape", "eac3", "mka", "tta", "3ga")
+video_extensions_weird = PackedStringArray("m4v", "m4p", "3gp", "3g2", "psp", "f4v", "f4p", "avi", "flv", "ogv", "mpg", "gif (uncompressed)")
 
 [node name="BG Color" type="Panel" parent="." unique_id=1914869696]
 layout_mode = 1
