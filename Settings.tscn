@@ -20,6 +20,10 @@ content_margin_bottom = 0.0
 bg_color = Color(0.03750939, 0.09221437, 0.039877687, 1)
 corner_detail = 5
 
+[sub_resource type="DPITexture" id="DPITexture_mx4kw"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
+"
+
 [node name="Control" type="Control" unique_id=1581714445]
 layout_mode = 3
 anchors_preset = 15
@@ -69,16 +73,33 @@ offset_bottom = 646.0
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1153334547]
 layout_mode = 2
 
-[node name="WeirdFiles" type="CheckButton" parent="ScrollContainer/VBoxContainer" unique_id=1031398980]
+[node name="PanelContainer" type="PanelContainer" parent="ScrollContainer/VBoxContainer" unique_id=184977591]
 layout_mode = 2
-tooltip_text = "Allow for uncommenly used filetypes such as .3ga or .psp"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/PanelContainer" unique_id=1357247930]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=422134592]
+layout_mode = 2
+theme = ExtResource("2_mx4kw")
+theme_override_font_sizes/font_size = 25
+text = "Convert"
+horizontal_alignment = 1
+
+[node name="WeirdFiles" type="CheckButton" parent="ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1031398980]
+layout_mode = 2
+tooltip_text = "Allow for uncommenly used filetypes such as .3ga or .psp. These may be untested and thus might cause issues"
+theme = ExtResource("2_mx4kw")
+theme_override_icons/unchecked = SubResource("DPITexture_mx4kw")
 text = "Allow \"Weird\" Filetypes"
 
-[node name="AutoCompressGifs" type="CheckButton" parent="ScrollContainer/VBoxContainer" unique_id=1371579601]
+[node name="AutoCompressGifs" type="CheckButton" parent="ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1371579601]
 layout_mode = 2
 tooltip_text = "Automatically Compress Gifs Unless otherwise specified s"
+theme = ExtResource("2_mx4kw")
+theme_override_icons/unchecked = SubResource("DPITexture_mx4kw")
 text = "Automatically Compress Gifs"
 
 [connection signal="pressed" from="ControlBar/Convert" to="." method="_on_convert_pressed"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/WeirdFiles" to="." method="_on_weird_files_toggled"]
-[connection signal="toggled" from="ScrollContainer/VBoxContainer/AutoCompressGifs" to="." method="_on_auto_compress_gifs_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/WeirdFiles" to="." method="_on_weird_files_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/AutoCompressGifs" to="." method="_on_auto_compress_gifs_toggled"]

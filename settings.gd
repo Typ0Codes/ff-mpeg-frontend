@@ -5,8 +5,8 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$ScrollContainer/VBoxContainer/WeirdFiles.set_pressed_no_signal(Globals.weirdassfiletypes)
-	$ScrollContainer/VBoxContainer/AutoCompressGifs.set_pressed_no_signal(Globals.CompressGifs)
+	$ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/WeirdFiles.set_pressed_no_signal(Globals.weirdassfiletypes)
+	$ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer/AutoCompressGifs.set_pressed_no_signal(Globals.CompressGifs)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

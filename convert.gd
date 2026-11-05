@@ -1,7 +1,8 @@
 extends Control
 
 @onready var inputfiledialog = $InputFile/InputFileDialog
-@onready var extenstionselector = $OutputFile/extensionselector
+@onready var extenstionselector = $OutputFile/HBoxContainer/extensionselector
+@onready var filetypeselector = $OutputFile/HBoxContainer/filetypeselector
 @onready var progressbar = $ProgressBar
 @onready var convertbutton = $InputFile/Button
 
@@ -17,8 +18,15 @@ var out_path := ""
 #extension types
 @export var audio_extensions: PackedStringArray
 @export var video_extensions: PackedStringArray
+@export var image_extensions: PackedStringArray
 @export var audio_extensions_weird: PackedStringArray
 @export var video_extensions_weird: PackedStringArray
+@export var image_extensions_weird: PackedStringArray
+
+#extension images
+@export var Audio_Image: Texture2D
+@export var Video_Image: Texture2D
+@export var Image_Image: Texture2D
 
 
 func _ready() -> void:
@@ -33,12 +41,13 @@ func _exit_tree() -> void:
 
 func _on_input_file_selector_button_pressed() -> void:
 	inputfiledialog.visible = true
-	extenstionselector.clear()
+	$InputFile/TextureRect.visible = false
 
 
 func _on_input_file_dialog_file_selected(path: String) -> void:
 	inputfile = path
 	print(inputfile)
+	
 	_extensionselector_dynamic_options()
 
 
@@ -109,12 +118,21 @@ func _on_convert_pressed() -> void:
 
 #long ass name
 func _extensionselector_dynamic_options() -> void:
+	extenstionselector.clear()
 	if (inputfile.get_extension() in audio_extensions) or (inputfile.get_extension() in audio_extensions_weird):
 		for item in audio_extensions:
 			extenstionselector.add_item("." + item)
+		$InputFile/TextureRect.texture = Audio_Image
 	elif (inputfile.get_extension() in video_extensions) or (inputfile.get_extension() in video_extensions_weird):
 		for item in video_extensions:
 			extenstionselector.add_item("." + item)
+		$InputFile/TextureRect.texture = Video_Image
+	elif (inputfile.get_extension() in image_extensions) or (inputfile.get_extension() in image_extensions_weird):
+		for item in image_extensions:
+			extenstionselector.add_item("." + item)
+		$InputFile/TextureRect.texture = Image_Image
+	$InputFile/TextureRect.visible = true
+	$InputFile/Label.text = inputfile.get_file()
 
 
 func _on_timer_timeout() -> void:

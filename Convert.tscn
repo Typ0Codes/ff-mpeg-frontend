@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://ihhfrpjtcmt1"]
 
 [ext_resource type="Script" uid="uid://bbps4uyc14imj" path="res://convert.gd" id="1_gih14"]
+[ext_resource type="Texture2D" uid="uid://bllhc0ivack10" path="res://Audio.svg" id="2_2cvtn"]
 [ext_resource type="Theme" uid="uid://dk5gur85t661f" path="res://Defaults.tres" id="2_bypvw"]
 [ext_resource type="Texture2D" uid="uid://cy5mpnlxfljb0" path="res://gear.png" id="2_dae5x"]
+[ext_resource type="Texture2D" uid="uid://bcixt3rls64u4" path="res://Video.svg" id="3_x3lue"]
+[ext_resource type="Texture2D" uid="uid://sg3anh6gl5tp" path="res://Image.svg" id="4_65hhb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lg8h"]
 content_margin_left = 0.0
@@ -66,8 +69,13 @@ grow_vertical = 2
 script = ExtResource("1_gih14")
 audio_extensions = PackedStringArray("mp3", "wav", "ogg", "m4a", "flac")
 video_extensions = PackedStringArray("mp4", "mkv", "mov", "webm", "ogv", "gif")
+image_extensions = PackedStringArray("png", "jpg", "bmp", "tiff", "webp", "ico", "heic", "heif", ".svg")
 audio_extensions_weird = PackedStringArray("ac3", "amr", "caf", "dts", "aac", "oga", "opus", "ape", "eac3", "mka", "tta", "3ga")
 video_extensions_weird = PackedStringArray("m4v", "m4p", "3gp", "3g2", "psp", "f4v", "f4p", "avi", "flv", "ogv", "mpg", "gif (uncompressed)")
+image_extensions_weird = PackedStringArray("tga", "avif", "exr", "dpx", "psd", "dng", "raw", "qoi", "pcx")
+Audio_Image = ExtResource("2_2cvtn")
+Video_Image = ExtResource("3_x3lue")
+Image_Image = ExtResource("4_65hhb")
 
 [node name="BG Color" type="Panel" parent="." unique_id=1914869696]
 layout_mode = 1
@@ -152,6 +160,18 @@ file_mode = 0
 access = 2
 use_native_dialog = true
 
+[node name="TextureRect" type="TextureRect" parent="InputFile" unique_id=182439370]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_65hhb")
+
+[node name="Label" type="Label" parent="InputFile" unique_id=265426936]
+layout_mode = 2
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 5
+
 [node name="OutputFile" type="PanelContainer" parent="." unique_id=554382554]
 layout_mode = 1
 anchors_preset = 6
@@ -177,19 +197,44 @@ theme_override_font_sizes/font_size = 30
 text = "Output File"
 horizontal_alignment = 1
 
-[node name="extensionselector" type="OptionButton" parent="OutputFile" unique_id=1046237929]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme = ExtResource("2_bypvw")
-theme_override_font_sizes/font_size = 24
-
 [node name="InputFileDialog" type="FileDialog" parent="OutputFile" unique_id=1046940972]
 oversampling_override = 1.0
 title = "Open a File"
 file_mode = 0
 access = 2
 use_native_dialog = true
+
+[node name="TextureRect" type="TextureRect" parent="OutputFile" unique_id=1365246810]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_65hhb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OutputFile" unique_id=1029169400]
+layout_mode = 2
+alignment = 1
+
+[node name="filetypeselector" type="OptionButton" parent="OutputFile/HBoxContainer" unique_id=1092333498]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 24
+selected = 0
+item_count = 3
+popup/item_0/text = "Video"
+popup/item_0/id = 0
+popup/item_1/text = "Audio"
+popup/item_1/id = 1
+popup/item_2/text = "Image"
+popup/item_2/id = 2
+
+[node name="extensionselector" type="OptionButton" parent="OutputFile/HBoxContainer" unique_id=1046237929]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 24
 
 [node name="Convert" type="Button" parent="." unique_id=1457867780]
 layout_mode = 1
@@ -230,7 +275,8 @@ wait_time = 0.2
 [connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
-[connection signal="item_selected" from="OutputFile/extensionselector" to="." method="_on_extensionselector_item_selected"]
 [connection signal="file_selected" from="OutputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
+[connection signal="item_selected" from="OutputFile/HBoxContainer/filetypeselector" to="." method="_on_extensionselector_item_selected"]
+[connection signal="item_selected" from="OutputFile/HBoxContainer/extensionselector" to="." method="_on_extensionselector_item_selected"]
 [connection signal="pressed" from="Convert" to="." method="_on_convert_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
