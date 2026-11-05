@@ -17,6 +17,8 @@ var out_path := ""
 #extension types
 @export var audio_extensions: PackedStringArray
 @export var video_extensions: PackedStringArray
+@export var audio_extensions_weird: PackedStringArray
+@export var video_extensions_weird: PackedStringArray
 
 
 func _ready() -> void:

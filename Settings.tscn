@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dn210s3liqirg"]
 
 [ext_resource type="Texture2D" uid="uid://cy5mpnlxfljb0" path="res://gear.png" id="1_2fv1l"]
+[ext_resource type="Script" uid="uid://bw31a82tqa7r2" path="res://settings.gd" id="1_mx4kw"]
 [ext_resource type="Theme" uid="uid://dk5gur85t661f" path="res://Defaults.tres" id="2_mx4kw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37a8j"]
@@ -26,11 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="CheckButton" type="CheckButton" parent="." unique_id=1031398980]
-layout_mode = 0
-offset_right = 44.0
-offset_bottom = 24.0
+script = ExtResource("1_mx4kw")
 
 [node name="BG Color" type="Panel" parent="." unique_id=718647599]
 layout_mode = 1
@@ -62,3 +59,19 @@ size_flags_horizontal = 0
 theme = ExtResource("2_mx4kw")
 theme_override_font_sizes/font_size = 40
 text = "Convert"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=361766174]
+layout_mode = 0
+offset_top = 58.0
+offset_right = 1154.0
+offset_bottom = 646.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1153334547]
+layout_mode = 2
+
+[node name="WeirdFiles" type="CheckButton" parent="ScrollContainer/VBoxContainer" unique_id=1031398980]
+layout_mode = 2
+text = "Allow \"Weird\" Filetypes"
+
+[connection signal="pressed" from="ControlBar/Convert" to="." method="_on_convert_pressed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/WeirdFiles" to="." method="_on_weird_files_toggled"]
