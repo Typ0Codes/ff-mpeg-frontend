@@ -276,7 +276,7 @@ wait_time = 0.2
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
 [connection signal="file_selected" from="OutputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
-[connection signal="item_selected" from="OutputFile/HBoxContainer/filetypeselector" to="." method="_on_extensionselector_item_selected"]
+[connection signal="item_selected" from="OutputFile/HBoxContainer/filetypeselector" to="." method="_on_filetypeselector_item_selected"]
 [connection signal="item_selected" from="OutputFile/HBoxContainer/extensionselector" to="." method="_on_extensionselector_item_selected"]
 [connection signal="pressed" from="Convert" to="." method="_on_convert_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

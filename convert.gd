@@ -14,6 +14,9 @@ var extension := ".wav"
 var ffmpeg_pid := -1
 var total_duration_us := 0
 var out_path := ""
+var VideoOut = false
+var AudioOut = false
+Var ImageOut = false
 
 #extension types
 @export var audio_extensions: PackedStringArray
@@ -128,8 +131,7 @@ func _extensionselector_dynamic_options() -> void:
 			extenstionselector.add_item("." + item)
 		$InputFile/TextureRect.texture = Video_Image
 	elif (inputfile.get_extension() in image_extensions) or (inputfile.get_extension() in image_extensions_weird):
-		for item in image_extensions:
-			extenstionselector.add_item("." + item)
+		
 		$InputFile/TextureRect.texture = Image_Image
 	$InputFile/TextureRect.visible = true
 	$InputFile/Label.text = inputfile.get_file()
@@ -189,3 +191,9 @@ func _on_timer_timeout() -> void:
 
 func _on_settings_pressed() -> void:
 	get_tree().change_scene_to_file("res://Settings.tscn")
+
+
+func _on_filetypeselector_item_selected(index: int) -> void:
+	if index == 0:
+		
+		
