@@ -61,7 +61,7 @@ func _on_extensionselector_item_selected(index: int) -> void:
 
 func _on_convert_pressed() -> void:
 	if inputfile.is_empty():
-		push_error("No input file selected")
+		error_handler("No input file selected")
 		return
 
 	var prog_file_path = progress_path + "progress.txt"
@@ -76,7 +76,7 @@ func _on_convert_pressed() -> void:
 		inputfile
 	], probe_output, false)
 	if probe_output.is_empty():
-		push_error("ffprobe failed on: " + inputfile)
+		error_handler("ffprobe failed on: " + inputfile)
 		return
 	total_duration_us = int(probe_output[0].strip_edges().to_float() * 1000000.0)
 
@@ -109,7 +109,7 @@ func _on_convert_pressed() -> void:
 
 	ffmpeg_pid = OS.create_process("ffmpeg", args)
 	if ffmpeg_pid == -1:
-		push_error("ffmpeg failed to launch")
+		error_handler("ffmpeg failed to launch")
 		return
 
 	progressbar.min_value = 0
@@ -153,9 +153,12 @@ func _on_timer_timeout() -> void:
 		if ok:
 			progressbar.value = 1
 			print("Converted: ", out_path)
+			$YouWin.text = inputfile.get_file() + " Converted Succesfully!"
+			$YouWin.visible = true
+			$ErrorMsg.visible = false
 		else:
 			progressbar.value = 0
-			push_error("Conversion failed, no valid output at: " + out_path)
+			error_handler("Conversion failed, no valid output at: " + out_path)
 			if FileAccess.file_exists(out_path):
 				DirAccess.remove_absolute(out_path)
 		return
@@ -226,4 +229,10 @@ func _process(delta: float) -> void:
 
 
 func _on_you_win_pressed() -> void:
-	pass # Replace with function body.
+	OS.shell_open(outputpath)
+	
+#probably a strong word but my goddamn codebase
+func error_handler(text: String):
+	$ErrorMsg.visible = true
+	push_error(text)
+	$ErrorMsg.text = text

@@ -69,7 +69,7 @@ grow_vertical = 2
 script = ExtResource("1_gih14")
 audio_extensions = PackedStringArray("mp3", "wav", "ogg", "m4a", "flac")
 video_extensions = PackedStringArray("mp4", "mkv", "mov", "webm", "ogv", "gif")
-image_extensions = PackedStringArray("png", "jpg", "bmp", "tiff", "webp", "ico", "heic", "heif", ".svg")
+image_extensions = PackedStringArray("png", "jpg", "bmp", "tiff", "webp", "ico", "heic", "heif", "svg")
 audio_extensions_weird = PackedStringArray("ac3", "amr", "caf", "dts", "aac", "oga", "opus", "ape", "eac3", "mka", "tta", "3ga")
 video_extensions_weird = PackedStringArray("m4v", "m4p", "3gp", "3g2", "psp", "f4v", "f4p", "avi", "flv", "ogv", "mpg", "gif (uncompressed)")
 image_extensions_weird = PackedStringArray("tga", "avif", "exr", "dpx", "psd", "dng", "raw", "qoi", "pcx")
@@ -289,6 +289,21 @@ grow_horizontal = 2
 theme = ExtResource("2_bypvw")
 text = "...Converted Succesfully!"
 
+[node name="ErrorMsg" type="Label" parent="." unique_id=487934316]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.95999
+offset_top = 175.5
+offset_right = 86.04004
+offset_bottom = 204.5
+grow_horizontal = 2
+theme = ExtResource("2_bypvw")
+text = "You Are Fucked"
+horizontal_alignment = 1
+
 [node name="Timer" type="Timer" parent="." unique_id=941021969]
 wait_time = 0.2
 
@@ -299,4 +314,5 @@ wait_time = 0.2
 [connection signal="item_selected" from="OutputFile/HBoxContainer/filetypeselector" to="." method="_on_filetypeselector_item_selected"]
 [connection signal="item_selected" from="OutputFile/HBoxContainer/extensionselector" to="." method="_on_extensionselector_item_selected"]
 [connection signal="pressed" from="Convert" to="." method="_on_convert_pressed"]
+[connection signal="pressed" from="YouWin" to="." method="_on_you_win_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
