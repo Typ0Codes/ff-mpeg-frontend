@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://b2iskgb3au8va"]
+
+[ext_resource type="Script" uid="uid://cv6t2pwgsxkha" path="res://compress.gd" id="1_51sni"]
+[ext_resource type="Texture2D" uid="uid://cy5mpnlxfljb0" path="res://gear.png" id="1_r5lo5"]
+[ext_resource type="Theme" uid="uid://dk5gur85t661f" path="res://Defaults.tres" id="2_51sni"]
+[ext_resource type="Texture2D" uid="uid://cxvqvqsp3aqbm" path="res://blank.svg" id="4_rdarn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdarn"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.09689999, 0.19, 0.101555, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2o3ly"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.03750939, 0.09221437, 0.039877687, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocpuc"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.8039216)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[node name="Control" type="Control" unique_id=1473025185]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_51sni")
+
+[node name="BG Color" type="Panel" parent="." unique_id=1108976611]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rdarn")
+
+[node name="ControlBar" type="PanelContainer" parent="." unique_id=248007803]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 33.725
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2o3ly")
+
+[node name="Settings" type="Button" parent="ControlBar" unique_id=118388996]
+layout_mode = 2
+size_flags_horizontal = 8
+offset_transform_scale = Vector2(0.475, 0.475)
+icon = ExtResource("1_r5lo5")
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlBar" unique_id=2058535225]
+layout_mode = 2
+theme_override_constants/separation = 23
+
+[node name="Convert" type="Button" parent="ControlBar/HBoxContainer" unique_id=1225518417]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_51sni")
+theme_override_font_sizes/font_size = 40
+text = "Convert"
+
+[node name="Compress" type="Button" parent="ControlBar/HBoxContainer" unique_id=1053785678]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_51sni")
+theme_override_font_sizes/font_size = 40
+text = "Compress"
+
+[node name="InputFile" type="PanelContainer" parent="." unique_id=1240003551]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -279.5
+offset_top = -169.0
+offset_right = 279.5
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ocpuc")
+
+[node name="Button" type="Button" parent="InputFile" unique_id=1772323296]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("2_51sni")
+theme_override_font_sizes/font_size = 24
+text = "Open File Selector"
+
+[node name="compress" type="Button" parent="InputFile" unique_id=1058998333]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("2_51sni")
+theme_override_font_sizes/font_size = 24
+text = "Compress"
+
+[node name="InputFileDialog" type="FileDialog" parent="InputFile" unique_id=1209807766]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="TextureRect" type="TextureRect" parent="InputFile" unique_id=97687048]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_scale = Vector2(2.065, 2.065)
+offset_transform_visual_only = false
+texture = ExtResource("4_rdarn")
+
+[node name="Label" type="Label" parent="InputFile" unique_id=727906964]
+layout_mode = 2
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 5.995)
+offset_transform_position_ratio = Vector2(0, 2.235)
+offset_transform_visual_only = false
+theme = ExtResource("2_51sni")
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 5
+
+[connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="ControlBar/HBoxContainer/Convert" to="." method="_on_convert_pressed"]
+[connection signal="pressed" from="InputFile/Button" to="." method="_on_file_selector_pressed"]

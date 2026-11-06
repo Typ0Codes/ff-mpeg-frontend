@@ -138,14 +138,23 @@ func _on_convert_pressed() -> void:
 func _extensionselector_dynamic_options() -> void:
 	
 	if (inputfile.get_extension() in audio_extensions) or (inputfile.get_extension() in audio_extensions_weird):
+		VideoOut = false
 		AudioOut = true
+		ImageOut = false
 		$InputFile/TextureRect.texture = Audio_Image
+		filetypeselector.select(1)
 	elif (inputfile.get_extension() in video_extensions) or (inputfile.get_extension() in video_extensions_weird):
 		VideoOut = true
+		AudioOut = false
+		ImageOut = false
 		$InputFile/TextureRect.texture = Video_Image
+		filetypeselector.select(0)
 	elif (inputfile.get_extension() in image_extensions) or (inputfile.get_extension() in image_extensions_weird):
+		VideoOut = false
+		AudioOut = false
 		ImageOut = true
 		$InputFile/TextureRect.texture = Image_Image
+		filetypeselector.select(2)
 	$InputFile/TextureRect.visible = true
 	$InputFile/Label.text = inputfile.get_file()
 	
@@ -214,9 +223,15 @@ func _on_settings_pressed() -> void:
 func _on_filetypeselector_item_selected(index: int) -> void:
 	if index == 0:
 		VideoOut = true
+		AudioOut = false
+		ImageOut = false
 	if index == 1:
+		VideoOut = false
 		AudioOut = true
+		ImageOut = false
 	if index == 2:
+		VideoOut = false
+		AudioOut = false
 		ImageOut = true
 	dynadds()
 
@@ -301,3 +316,7 @@ func batchconvert() -> void:
 	batch_mode = false
 	$YouWin.text = "Batch finished: %d files processed" % files.size()
 	$YouWin.visible = true
+
+
+func _on_compress_pressed() -> void:
+	get_tree().change_scene_to_file("res://Compress.tscn")

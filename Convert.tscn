@@ -103,12 +103,23 @@ offset_transform_scale = Vector2(0.475, 0.475)
 icon = ExtResource("2_dae5x")
 alignment = 2
 
-[node name="Convert" type="Button" parent="ControlBar" unique_id=1998545923]
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlBar" unique_id=1773593356]
+layout_mode = 2
+theme_override_constants/separation = 23
+
+[node name="Convert" type="Button" parent="ControlBar/HBoxContainer" unique_id=1998545923]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("2_bypvw")
 theme_override_font_sizes/font_size = 40
 text = "Convert"
+
+[node name="Compress" type="Button" parent="ControlBar/HBoxContainer" unique_id=1388237476]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 40
+text = "Compress"
 
 [node name="Label" type="Label" parent="." unique_id=78067633]
 layout_mode = 1
@@ -160,6 +171,7 @@ oversampling_override = 1.0
 title = "Open a File or Directory"
 file_mode = 3
 access = 2
+use_native_dialog = true
 
 [node name="TextureRect" type="TextureRect" parent="InputFile" unique_id=182439370]
 visible = false
@@ -309,6 +321,7 @@ horizontal_alignment = 1
 wait_time = 0.2
 
 [connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="ControlBar/HBoxContainer/Compress" to="." method="_on_compress_pressed"]
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
 [connection signal="dir_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_dir_selected"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
