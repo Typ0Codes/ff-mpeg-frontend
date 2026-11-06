@@ -101,10 +101,10 @@ layout_mode = 2
 size_flags_horizontal = 8
 offset_transform_scale = Vector2(0.475, 0.475)
 icon = ExtResource("2_dae5x")
-alignment = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ControlBar" unique_id=1773593356]
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/separation = 23
 
 [node name="Convert" type="Button" parent="ControlBar/HBoxContainer" unique_id=1998545923]

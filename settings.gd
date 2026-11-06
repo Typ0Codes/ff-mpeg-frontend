@@ -31,3 +31,7 @@ func _on_auto_compress_gifs_toggled(toggled_on: bool) -> void:
 
 func _on_compress_pressed() -> void:
 	get_tree().change_scene_to_file("res://Compress.tscn")
+
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+	Globals.DefaultOutputPath = new_text

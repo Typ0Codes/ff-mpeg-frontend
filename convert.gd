@@ -9,7 +9,7 @@ extends Control
 var inputfile := ""
 var documents_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 var progress_path = OS.get_user_data_dir() + "/Progress/"
-@onready var outputpath = documents_path + "/GDConvert/"
+@onready var outputpath = Globals.DefaultOutputPath
 var extension := ".wav"
 var ffmpeg_pid := -1
 var total_duration_us := 0

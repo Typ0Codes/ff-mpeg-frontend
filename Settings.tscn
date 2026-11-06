@@ -172,6 +172,7 @@ theme = ExtResource("2_mx4kw")
 theme_override_font_sizes/font_size = 40
 text = "Compress"
 
+[connection signal="text_changed" from="ScrollContainer/HBoxContainer/VBoxContainer/PanelContainer2/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="toggled" from="ScrollContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/WeirdFiles" to="." method="_on_weird_files_toggled"]
 [connection signal="toggled" from="ScrollContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/AutoCompressGifs" to="." method="_on_auto_compress_gifs_toggled"]
 [connection signal="pressed" from="ControlBar/HBoxContainer/Convert" to="." method="_on_convert_pressed"]
