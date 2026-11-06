@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cy5mpnlxfljb0" path="res://gear.png" id="2_dae5x"]
 [ext_resource type="Texture2D" uid="uid://bcixt3rls64u4" path="res://Video.svg" id="3_x3lue"]
 [ext_resource type="Texture2D" uid="uid://sg3anh6gl5tp" path="res://Image.svg" id="4_65hhb"]
+[ext_resource type="Texture2D" uid="uid://d35r1gm0dc0ip" path="res://Folder.svg" id="5_x3lue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lg8h"]
 content_margin_left = 0.0
@@ -76,6 +77,7 @@ image_extensions_weird = PackedStringArray("tga", "avif", "exr", "dpx", "psd", "
 Audio_Image = ExtResource("2_2cvtn")
 Video_Image = ExtResource("3_x3lue")
 Image_Image = ExtResource("4_65hhb")
+Folder_Image = ExtResource("5_x3lue")
 
 [node name="BG Color" type="Panel" parent="." unique_id=1914869696]
 layout_mode = 1
@@ -155,10 +157,9 @@ text = "Open File Selector"
 
 [node name="InputFileDialog" type="FileDialog" parent="InputFile" unique_id=1341400136]
 oversampling_override = 1.0
-title = "Open a File"
-file_mode = 0
+title = "Open a File or Directory"
+file_mode = 3
 access = 2
-use_native_dialog = true
 
 [node name="TextureRect" type="TextureRect" parent="InputFile" unique_id=182439370]
 visible = false
@@ -309,6 +310,7 @@ wait_time = 0.2
 
 [connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
+[connection signal="dir_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_dir_selected"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
 [connection signal="file_selected" from="OutputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
 [connection signal="item_selected" from="OutputFile/HBoxContainer/filetypeselector" to="." method="_on_filetypeselector_item_selected"]

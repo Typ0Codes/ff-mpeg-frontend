@@ -17,6 +17,15 @@ var out_path := ""
 var VideoOut = false
 var AudioOut = false
 var ImageOut = false
+var FolderOut = false
+
+#batch stuff
+var inputfolder := ""
+var batch_queue: Array = []
+var batch_total := 0
+var batch_index := 0   
+var batch_mode := false
+var godobatch = false
 
 #extension types
 @export var audio_extensions: PackedStringArray
@@ -30,6 +39,7 @@ var ImageOut = false
 @export var Audio_Image: Texture2D
 @export var Video_Image: Texture2D
 @export var Image_Image: Texture2D
+@export var Folder_Image: Texture2D
 
 
 func _ready() -> void:
@@ -50,7 +60,7 @@ func _on_input_file_selector_button_pressed() -> void:
 func _on_input_file_dialog_file_selected(path: String) -> void:
 	inputfile = path
 	print(inputfile)
-	
+	godobatch = false
 	_extensionselector_dynamic_options()
 
 
@@ -60,6 +70,11 @@ func _on_extensionselector_item_selected(index: int) -> void:
 
 
 func _on_convert_pressed() -> void:
+	
+	if godobatch and not batch_mode:
+		batchconvert()
+		return
+	
 	if inputfile.is_empty():
 		error_handler("No input file selected")
 		return
@@ -236,3 +251,53 @@ func error_handler(text: String):
 	$ErrorMsg.visible = true
 	push_error(text)
 	$ErrorMsg.text = text
+
+
+func _on_input_file_dialog_dir_selected(dir: String) -> void:
+	$InputFile/TextureRect.visible = true
+	$InputFile/TextureRect.texture = Folder_Image
+	$InputFile/Label.text = dir.trim_suffix("/").get_file()
+	inputfolder = dir
+	godobatch = true
+
+func batchconvert() -> void:
+	if batch_mode:
+		return
+
+	var files: Array = []
+	for f in DirAccess.get_files_at(inputfolder):
+		var ext := f.get_extension().to_lower()
+		if ext in audio_extensions or ext in audio_extensions_weird \
+		or ext in video_extensions or ext in video_extensions_weird \
+		or ext in image_extensions or ext in image_extensions_weird:
+			files.append(inputfolder.path_join(f))
+
+	if files.is_empty():
+		error_handler("No media files found in: " + inputfolder)
+		return
+	files.sort()
+
+	batch_mode = true
+	var original_input := inputfile
+	var original_outputpath: String = outputpath
+
+	
+	var folder_name := inputfolder.trim_suffix("/").get_file()
+	outputpath = original_outputpath + folder_name + "/"
+	DirAccess.make_dir_recursive_absolute(outputpath)
+
+	for path in files:
+		inputfile = path
+		$InputFile/Label.text = path.get_file()
+		_on_convert_pressed()
+
+		while not $Timer.is_stopped():
+			await get_tree().process_frame
+			if not is_inside_tree():
+				return
+
+	inputfile = original_input
+	outputpath = original_outputpath
+	batch_mode = false
+	$YouWin.text = "Batch finished: %d files processed" % files.size()
+	$YouWin.visible = true
