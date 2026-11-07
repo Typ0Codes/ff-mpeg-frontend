@@ -33,6 +33,30 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sypq3"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.59607846)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3igmw"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.64510465, 0.24697137, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
 [node name="Control" type="Control" unique_id=1473025185]
 layout_mode = 3
 anchors_preset = 15
@@ -143,6 +167,57 @@ horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 5
 
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1431922106]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.82999
+offset_top = 141.675
+offset_right = 181.40369
+offset_bottom = 168.67505
+grow_horizontal = 2
+theme = ExtResource("2_51sni")
+theme_override_styles/background = SubResource("StyleBoxFlat_sypq3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3igmw")
+max_value = 1.0
+step = 0.001
+
+[node name="YouWin" type="Button" parent="." unique_id=1359802528]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.95999
+offset_top = 175.5
+offset_right = 79.036865
+offset_bottom = 202.50005
+grow_horizontal = 2
+theme = ExtResource("2_51sni")
+text = "...Converted Succesfully!"
+
+[node name="ErrorMsg" type="Label" parent="." unique_id=952447317]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.95999
+offset_top = 175.5
+offset_right = 86.04004
+offset_bottom = 204.5
+grow_horizontal = 2
+theme = ExtResource("2_51sni")
+text = "You Are Fucked"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=1558961148]
+wait_time = 0.2
+
 [connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="ControlBar/HBoxContainer/Convert" to="." method="_on_convert_pressed"]
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_file_selector_pressed"]
+[connection signal="pressed" from="InputFile/compress" to="." method="compress"]
+[connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
