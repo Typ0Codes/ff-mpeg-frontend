@@ -11,6 +11,17 @@ var ffmpeg_pid := -1
 @onready var progressbar = $ProgressBar
 @onready var convertbutton = $InputFile/compress
 
+@export var audio_extensions: PackedStringArray
+@export var video_extensions: PackedStringArray
+@export var image_extensions: PackedStringArray
+@export var audio_extensions_weird: PackedStringArray
+@export var video_extensions_weird: PackedStringArray
+@export var image_extensions_weird: PackedStringArray
+
+var VideoOut = false
+var AudioOut = false
+var ImageOut = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -76,6 +87,8 @@ func compress() -> void:
 	var imgargs := [
 		"-q:v", "3"
 	]
+	
+	var audioargs := []
 
 	args.append_array(videoargs)
 	args.append(out_path)
@@ -111,6 +124,19 @@ func error_handler(text: String):
 func _on_input_file_dialog_file_selected(path: String) -> void:
 	inputfile = path
 	print(inputfile)
+	
+	if (inputfile.get_extension() in audio_extensions) or (inputfile.get_extension() in audio_extensions_weird):
+		VideoOut = false
+		AudioOut = true
+		ImageOut = false
+	elif (inputfile.get_extension() in video_extensions) or (inputfile.get_extension() in video_extensions_weird):
+		VideoOut = true
+		AudioOut = false
+		ImageOut = false
+	elif (inputfile.get_extension() in image_extensions) or (inputfile.get_extension() in image_extensions_weird):
+		VideoOut = false
+		AudioOut = false
+		ImageOut = true
 	
 func _on_timer_timeout() -> void:
 	# finished (or died)

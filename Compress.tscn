@@ -33,6 +33,18 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0otuv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.43529412)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sypq3"]
 content_margin_left = 2.0
 content_margin_top = 2.0
@@ -65,6 +77,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_51sni")
+audio_extensions = PackedStringArray("mp3", "wav", "ogg", "m4a", "flac")
+video_extensions = PackedStringArray("mp4", "mkv", "mov", "webm", "ogv", "gif")
+image_extensions = PackedStringArray("png", "jpg", "bmp", "tiff", "webp", "ico", "heic", "heif", "svg")
+audio_extensions_weird = PackedStringArray("ac3", "amr", "caf", "dts", "aac", "oga", "opus", "ape", "eac3", "mka", "tta", "3ga")
+video_extensions_weird = PackedStringArray("m4v", "m4p", "3gp", "3g2", "psp", "f4v", "f4p", "avi", "flv", "ogv", "mpg", "gif (uncompressed)")
+image_extensions_weird = PackedStringArray("tga", "avif", "exr", "dpx", "psd", "dng", "raw", "qoi", "pcx")
 
 [node name="BG Color" type="Panel" parent="." unique_id=1108976611]
 layout_mode = 1
@@ -167,15 +185,34 @@ horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 5
 
+[node name="HBoxContainer" type="HBoxContainer" parent="InputFile" unique_id=547972324]
+custom_maximum_size = Vector2(-1, 198.725)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, 0.885)
+offset_transform_visual_only = false
+
+[node name="Quality" type="VSlider" parent="InputFile/HBoxContainer" unique_id=1067605526]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_0otuv")
+
+[node name="Label2" type="Label" parent="InputFile/HBoxContainer" unique_id=1529609521]
+layout_mode = 2
+size_flags_vertical = 8
+offset_transform_enabled = true
+offset_transform_visual_only = false
+theme = ExtResource("2_51sni")
+text = "Quality"
+
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=1431922106]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -177.82999
-offset_top = 141.675
+offset_top = 72.095
 offset_right = 181.40369
-offset_bottom = 168.67505
+offset_bottom = 99.095024
 grow_horizontal = 2
 theme = ExtResource("2_51sni")
 theme_override_styles/background = SubResource("StyleBoxFlat_sypq3")
@@ -189,10 +226,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -76.95999
-offset_top = 175.5
-offset_right = 79.036865
-offset_bottom = 202.50005
+offset_left = -80.46155
+offset_top = 110.005
+offset_right = 82.53845
+offset_bottom = 139.005
 grow_horizontal = 2
 theme = ExtResource("2_51sni")
 text = "...Converted Succesfully!"
@@ -204,9 +241,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -76.95999
-offset_top = 175.5
+offset_top = 110.005
 offset_right = 86.04004
-offset_bottom = 204.5
+offset_bottom = 139.00497
 grow_horizontal = 2
 theme = ExtResource("2_51sni")
 text = "You Are Fucked"
