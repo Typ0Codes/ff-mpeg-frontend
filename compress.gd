@@ -88,9 +88,17 @@ func compress() -> void:
 		"-q:v", "3"
 	]
 	
-	var audioargs := []
+	var audioargs := [
+		"-c:a", "aac",
+		"-b:a", "128k"
+	]
 
-	args.append_array(videoargs)
+	if VideoOut:
+		args.append_array(videoargs)
+	elif AudioOut:
+		args.append_array(audioargs)
+	elif ImageOut:
+		args.append_array(imgargs)
 	args.append(out_path)
 
 	ffmpeg_pid = OS.create_process("ffmpeg", args)
