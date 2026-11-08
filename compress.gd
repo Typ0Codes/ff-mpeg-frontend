@@ -18,9 +18,16 @@ var ffmpeg_pid := -1
 @export var video_extensions_weird: PackedStringArray
 @export var image_extensions_weird: PackedStringArray
 
+var quality = 50
+
 var VideoOut = false
 var AudioOut = false
 var ImageOut = false
+
+var pending_upscale := false
+var temp_path := ""
+var final_path := ""
+var upscale_factor := 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -65,8 +72,38 @@ func compress() -> void:
 	total_duration_us = int(probe_output[0].strip_edges().to_float() * 1000000.0)
 
 	var real_ext := "." + inputfile.get_extension()
+	if Globals.Bitcrush and ImageOut:
+		real_ext = ".jpg"
 	out_path = outputpath + inputfile.get_file().get_basename() + "_COMPRESSED" + real_ext
 
+	pending_upscale = false
+	temp_path = ""
+
+	var qualitypercentage: float = quality / 100.0
+	var crf: int
+	var audio_kbps: int
+	var img_q: int
+	var video_filters := ""
+	var audio_filters := ""
+	var preset := "ultrafast" if Globals.Bitcrush else "medium"
+
+	if Globals.Bitcrush:
+		crf = 51
+		audio_kbps = int(round(lerpf(8.0, 32.0, qualitypercentage)))
+		img_q = 31
+		var shrink := lerpf(0.1, 0.35, qualitypercentage)
+		video_filters = "scale=trunc(iw*%f/2)*2:trunc(ih*%f/2)*2:flags=bilinear" % [shrink, shrink]
+		audio_filters = "aresample=8000,acrusher=bits=6:mix=1:mode=lin"
+		if VideoOut or ImageOut:
+			pending_upscale = true
+			upscale_factor = 1.0 / shrink
+			final_path = out_path
+			temp_path = progress_path + "crush_temp" + real_ext
+			out_path = temp_path
+	else:
+		crf = int(round(lerpf(45.0, 18.0, qualitypercentage)))
+		audio_kbps = int(round(lerpf(32.0, 192.0, qualitypercentage)))
+		img_q = int(round(lerpf(31.0, 1.0, qualitypercentage)))
 
 	var args := [
 		"-y",
@@ -77,21 +114,28 @@ func compress() -> void:
 
 	var videoargs := [
 		"-c:v", "libx264",
-		"-crf", "23",
-		"-preset", "medium",
+		"-crf", str(crf),
+		"-preset", preset,
 		"-c:a", "aac",
-		"-b:a", "128k",
+		"-b:a", str(audio_kbps) + "k",
 		"-movflags", "+faststart",
 	]
-	
 	var imgargs := [
-		"-q:v", "3"
+		"-q:v", str(img_q)
 	]
-	
 	var audioargs := [
 		"-c:a", "aac",
-		"-b:a", "128k"
+		"-b:a", str(audio_kbps) + "k"
 	]
+
+	if Globals.Bitcrush:
+		videoargs.append_array([
+			"-vf", video_filters + ",format=yuv420p",
+			"-x264-params", "no-deblock=1:aq-mode=0",
+			"-af", audio_filters,
+		])
+		imgargs.append_array(["-vf", video_filters])
+		audioargs.append_array(["-af", audio_filters, "-ar", "8000"])
 
 	if VideoOut:
 		args.append_array(videoargs)
@@ -137,20 +181,34 @@ func _on_input_file_dialog_file_selected(path: String) -> void:
 		VideoOut = false
 		AudioOut = true
 		ImageOut = false
+		print("audio")
 	elif (inputfile.get_extension() in video_extensions) or (inputfile.get_extension() in video_extensions_weird):
 		VideoOut = true
 		AudioOut = false
 		ImageOut = false
+		print("video")
 	elif (inputfile.get_extension() in image_extensions) or (inputfile.get_extension() in image_extensions_weird):
 		VideoOut = false
 		AudioOut = false
 		ImageOut = true
+		print("image")
+
 	
 func _on_timer_timeout() -> void:
 	# finished (or died)
 	if not OS.is_process_running(ffmpeg_pid):
+		# bitcrush: pass 1 done, start the upscale pass
+		if pending_upscale and FileAccess.file_exists(temp_path):
+			pending_upscale = false
+			_start_upscale_pass()
+			return
+
 		$Timer.stop()
 		convertbutton.disabled = false
+
+		# clean up the temp file from pass 1
+		if temp_path != "" and FileAccess.file_exists(temp_path):
+			DirAccess.remove_absolute(temp_path)
 
 		var ok := false
 		if FileAccess.file_exists(out_path):
@@ -199,3 +257,26 @@ func _on_timer_timeout() -> void:
 
 	var fraction = clampf(float(currentprog) / float(total_duration_us), 0.0, 1.0)
 	progressbar.value = fraction
+	
+func _start_upscale_pass() -> void:
+	var prog_file_path = progress_path + "progress.txt"
+	if FileAccess.file_exists(prog_file_path):
+		DirAccess.remove_absolute(prog_file_path)
+
+	var k := upscale_factor
+	var up := "scale=trunc(iw*%f/2)*2:trunc(ih*%f/2)*2:flags=bicubic" % [k, k]
+	var a := ["-y", "-i", temp_path, "-progress", prog_file_path, "-nostats", "-vf", up]
+
+	if VideoOut:
+		a.append_array([
+			"-c:v", "libx264", "-crf", "18", "-preset", "veryfast",
+			"-pix_fmt", "yuv420p", "-c:a", "copy", "-movflags", "+faststart",
+		])
+	else:
+		a.append_array(["-q:v", "2"])
+
+	out_path = final_path
+	a.append(out_path)
+	ffmpeg_pid = OS.create_process("ffmpeg", a)
+	if ffmpeg_pid == -1:
+		error_handler("ffmpeg failed to launch (upscale pass)")

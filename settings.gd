@@ -7,6 +7,7 @@ extends Control
 func _ready() -> void:
 	$ScrollContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/WeirdFiles.set_pressed_no_signal(Globals.weirdassfiletypes)
 	$ScrollContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/AutoCompressGifs.set_pressed_no_signal(Globals.CompressGifs)
+	$ScrollContainer/HBoxContainer/VBoxContainer/PanelContainer3/VBoxContainer/Bitcrush.set_pressed_no_signal(Globals.Bitcrush)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,3 +36,7 @@ func _on_compress_pressed() -> void:
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	Globals.DefaultOutputPath = new_text
+
+
+func _on_bitcrush_toggled(toggled_on: bool) -> void:
+	Globals.Bitcrush = toggled_on

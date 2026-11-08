@@ -153,8 +153,9 @@ text = "Open File Selector"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+offset_transform_visual_only = false
 theme = ExtResource("2_51sni")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 31
 text = "Compress"
 
 [node name="InputFileDialog" type="FileDialog" parent="InputFile" unique_id=1209807766]
@@ -195,6 +196,7 @@ offset_transform_visual_only = false
 [node name="Quality" type="VSlider" parent="InputFile/HBoxContainer" unique_id=1067605526]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxFlat_0otuv")
+value = 50.0
 
 [node name="Label2" type="Label" parent="InputFile/HBoxContainer" unique_id=1529609521]
 layout_mode = 2
@@ -257,4 +259,5 @@ wait_time = 0.2
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_file_selector_pressed"]
 [connection signal="pressed" from="InputFile/compress" to="." method="compress"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]
+[connection signal="value_changed" from="InputFile/HBoxContainer/Quality" to="." method="_on_quality_value_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
