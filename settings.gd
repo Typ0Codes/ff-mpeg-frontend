@@ -40,3 +40,7 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 
 func _on_bitcrush_toggled(toggled_on: bool) -> void:
 	Globals.Bitcrush = toggled_on
+
+
+func _on_download_pressed() -> void:
+	get_tree().change_scene_to_file("res://Download.tscn")

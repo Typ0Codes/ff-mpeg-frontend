@@ -320,3 +320,7 @@ func batchconvert() -> void:
 
 func _on_compress_pressed() -> void:
 	get_tree().change_scene_to_file("res://Compress.tscn")
+
+
+func _on_download_pressed() -> void:
+	get_tree().change_scene_to_file("res://Download.tscn")

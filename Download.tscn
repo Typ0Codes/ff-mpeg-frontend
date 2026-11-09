@@ -1,0 +1,265 @@
+[gd_scene format=3 uid="uid://xyua018wfcbu"]
+
+[ext_resource type="Script" uid="uid://duxbgqa2vtjla" path="res://download.gd" id="1_ltk6p"]
+[ext_resource type="Texture2D" uid="uid://cy5mpnlxfljb0" path="res://gear.png" id="1_m0uox"]
+[ext_resource type="Theme" uid="uid://dk5gur85t661f" path="res://Defaults.tres" id="2_ltk6p"]
+[ext_resource type="Shader" uid="uid://cymgefk06cptg" path="res://background.gdshader" id="2_r3wti"]
+[ext_resource type="FontFile" uid="uid://ffpgrfffcbn6" path="res://Riks-Normal.otf" id="4_1636d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_brwv2"]
+shader = ExtResource("2_r3wti")
+shader_parameter/color1 = Color(7.70092e-07, 0.38675863, 0.15870786, 1)
+shader_parameter/color2 = Color(0, 0.14788443, 0.007501707, 1)
+shader_parameter/speed = 0.5
+shader_parameter/range = 0.3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r3wti"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.03750939, 0.09221437, 0.039877687, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brwv2"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.8039216)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gylkq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.8627451)
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_srwiv"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.59607846)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n01q7"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.64510465, 0.24697137, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[node name="Control" type="Control" unique_id=110100424]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ltk6p")
+
+[node name="BG Color" type="ColorRect" parent="." unique_id=1320620665]
+material = SubResource("ShaderMaterial_brwv2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ControlBar" type="PanelContainer" parent="." unique_id=2113647062]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 33.725
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r3wti")
+
+[node name="Settings" type="Button" parent="ControlBar" unique_id=466998112]
+layout_mode = 2
+size_flags_horizontal = 8
+offset_transform_scale = Vector2(0.475, 0.475)
+icon = ExtResource("1_m0uox")
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlBar" unique_id=440670943]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 23
+
+[node name="Convert" type="Button" parent="ControlBar/HBoxContainer" unique_id=740442630]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_ltk6p")
+theme_override_font_sizes/font_size = 40
+text = "Convert"
+
+[node name="Compress" type="Button" parent="ControlBar/HBoxContainer" unique_id=2070327682]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_ltk6p")
+theme_override_font_sizes/font_size = 40
+text = "Compress"
+
+[node name="Download" type="Button" parent="ControlBar/HBoxContainer" unique_id=1874785311]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_ltk6p")
+theme_override_font_sizes/font_size = 40
+text = "Download"
+
+[node name="ColorRect" type="ColorRect" parent="ControlBar" unique_id=1959752401]
+custom_minimum_size = Vector2(0, 4.23)
+layout_mode = 2
+size_flags_vertical = 8
+color = Color(0, 0, 0, 1)
+
+[node name="InputFile" type="PanelContainer" parent="." unique_id=349866721]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.25
+offset_top = -90.0
+offset_right = 159.25
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_brwv2")
+
+[node name="InputFileDialog" type="FileDialog" parent="InputFile" unique_id=1039292736]
+oversampling_override = 1.0
+title = "Open a File"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[node name="Label" type="Label" parent="InputFile" unique_id=1237558302]
+layout_mode = 2
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 5.995)
+offset_transform_position_ratio = Vector2(0, 2.235)
+offset_transform_visual_only = false
+theme = ExtResource("2_ltk6p")
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 5
+
+[node name="LineEdit" type="LineEdit" parent="InputFile" unique_id=60885789]
+custom_minimum_size = Vector2(277.83, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, 1.665)
+offset_transform_visual_only = false
+theme_override_styles/normal = SubResource("StyleBoxFlat_gylkq")
+placeholder_text = "URL"
+
+[node name="Label2" type="Label" parent="InputFile" unique_id=886003371]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_1636d")
+theme_override_font_sizes/font_size = 28
+text = "Youtube Downloader"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InputFile" unique_id=381860456]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="CheckButton" type="CheckButton" parent="InputFile/HBoxContainer" unique_id=476124820]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Audio Only"
+
+[node name="Download" type="Button" parent="InputFile/HBoxContainer" unique_id=401837491]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+offset_transform_visual_only = false
+theme = ExtResource("2_ltk6p")
+theme_override_font_sizes/font_size = 31
+text = "Download"
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1462790950]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -177.82999
+offset_top = 141.675
+offset_right = 181.40369
+offset_bottom = 168.67505
+grow_horizontal = 2
+theme = ExtResource("2_ltk6p")
+theme_override_styles/background = SubResource("StyleBoxFlat_srwiv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n01q7")
+max_value = 1.0
+step = 0.001
+
+[node name="YouWin" type="Button" parent="." unique_id=1606998318]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.95999
+offset_top = 175.5
+offset_right = 79.036865
+offset_bottom = 202.50005
+grow_horizontal = 2
+theme = ExtResource("2_ltk6p")
+text = "...Converted Succesfully!"
+
+[node name="ErrorMsg" type="Label" parent="." unique_id=1832529255]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.95999
+offset_top = 175.5
+offset_right = 86.04004
+offset_bottom = 204.5
+grow_horizontal = 2
+theme = ExtResource("2_ltk6p")
+text = "You Are Fucked"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=1486782862]
+wait_time = 0.2
+
+[connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="ControlBar/HBoxContainer/Convert" to="." method="_on_convert_pressed"]
+[connection signal="pressed" from="ControlBar/HBoxContainer/Compress" to="." method="_on_compress_pressed"]
+[connection signal="text_changed" from="InputFile/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="toggled" from="InputFile/HBoxContainer/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="InputFile/HBoxContainer/Download" to="." method="_on_download_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

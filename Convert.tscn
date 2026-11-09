@@ -7,14 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bcixt3rls64u4" path="res://Video.svg" id="3_x3lue"]
 [ext_resource type="Texture2D" uid="uid://sg3anh6gl5tp" path="res://Image.svg" id="4_65hhb"]
 [ext_resource type="Texture2D" uid="uid://d35r1gm0dc0ip" path="res://Folder.svg" id="5_x3lue"]
+[ext_resource type="Shader" uid="uid://cymgefk06cptg" path="res://background.gdshader" id="6_sgrap"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lg8h"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.09689999, 0.19, 0.101555, 1)
-corner_detail = 5
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1636d"]
+shader = ExtResource("6_sgrap")
+shader_parameter/color1 = Color(7.70092e-07, 0.38675863, 0.15870786, 1)
+shader_parameter/color2 = Color(0, 0.14788443, 0.007501707, 1)
+shader_parameter/speed = 0.5
+shader_parameter/range = 0.3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gih14"]
 content_margin_left = 0.0
@@ -79,20 +79,20 @@ Video_Image = ExtResource("3_x3lue")
 Image_Image = ExtResource("4_65hhb")
 Folder_Image = ExtResource("5_x3lue")
 
-[node name="BG Color" type="Panel" parent="." unique_id=1914869696]
+[node name="BG Color" type="ColorRect" parent="." unique_id=591496267]
+material = SubResource("ShaderMaterial_1636d")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3lg8h")
 
 [node name="ControlBar" type="PanelContainer" parent="." unique_id=445110249]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 33.725
+offset_bottom = 58.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gih14")
 
@@ -120,6 +120,19 @@ size_flags_horizontal = 0
 theme = ExtResource("2_bypvw")
 theme_override_font_sizes/font_size = 40
 text = "Compress"
+
+[node name="Download" type="Button" parent="ControlBar/HBoxContainer" unique_id=1814827925]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("2_bypvw")
+theme_override_font_sizes/font_size = 40
+text = "Download"
+
+[node name="ColorRect" type="ColorRect" parent="ControlBar" unique_id=1473350903]
+custom_minimum_size = Vector2(0, 4.23)
+layout_mode = 2
+size_flags_vertical = 8
+color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="." unique_id=78067633]
 layout_mode = 1
@@ -322,6 +335,7 @@ wait_time = 0.2
 
 [connection signal="pressed" from="ControlBar/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="ControlBar/HBoxContainer/Compress" to="." method="_on_compress_pressed"]
+[connection signal="pressed" from="ControlBar/HBoxContainer/Download" to="." method="_on_download_pressed"]
 [connection signal="pressed" from="InputFile/Button" to="." method="_on_input_file_selector_button_pressed"]
 [connection signal="dir_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_dir_selected"]
 [connection signal="file_selected" from="InputFile/InputFileDialog" to="." method="_on_input_file_dialog_file_selected"]

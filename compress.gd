@@ -177,6 +177,8 @@ func _on_input_file_dialog_file_selected(path: String) -> void:
 	inputfile = path
 	print(inputfile)
 	
+	$InputFile/Label.text = inputfile
+	
 	if (inputfile.get_extension() in audio_extensions) or (inputfile.get_extension() in audio_extensions_weird):
 		VideoOut = false
 		AudioOut = true
@@ -280,3 +282,7 @@ func _start_upscale_pass() -> void:
 	ffmpeg_pid = OS.create_process("ffmpeg", a)
 	if ffmpeg_pid == -1:
 		error_handler("ffmpeg failed to launch (upscale pass)")
+
+
+func _on_download_pressed() -> void:
+	get_tree().change_scene_to_file("res://Download.tscn")
