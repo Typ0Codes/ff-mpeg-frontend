@@ -2,7 +2,7 @@ extends Control
 
 var URL = ''
 var documents_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
-@onready var outputpath = documents_path + "/GDConvert/"
+@onready var outputpath = Globals.DefaultOutputPath
 
 var progress_path = OS.get_user_data_dir() + "/Progress/"
 var yt_pid := -1
@@ -51,7 +51,12 @@ func _on_download_pressed() -> void:
 	stream_idx = 0
 	stream_pct = 0.0
 
-	var fmt := "-x --audio-format wav" if wav_only else "-S vcodec:h264,res,acodec:m4a --merge-output-format mp4"
+	var fmt := "-S vcodec:h264,res,acodec:m4a --merge-output-format mp4"
+	if wav_only:
+		if Globals.Mp3InsteadOfWav:
+			fmt = "-x --audio-format mp3 --audio-quality 0 --embed-thumbnail --convert-thumbnails jpg"
+		else:
+			fmt = "-x --audio-format wav"
 
 	var url := URL.strip_edges()
 	var is_playlist := "/playlist" in url or "--yes-playlist" in url
@@ -143,7 +148,8 @@ func _on_timer_timeout() -> void:
 
 
 func _process(delta: float) -> void:
-	pass
+	$"BG Color".material.set_shader_parameter("color1", Globals.GradientColor1)
+	$"BG Color".material.set_shader_parameter("color2", Globals.GradientColor2)
 
 
 

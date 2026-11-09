@@ -256,6 +256,9 @@ func _process(delta: float) -> void:
 	if ImageOut:
 		$OutputFile/TextureRect.texture = Image_Image
 		
+	$"BG Color".material.set_shader_parameter("color1", Globals.GradientColor1)
+	$"BG Color".material.set_shader_parameter("color2", Globals.GradientColor2)
+		
 
 
 func _on_you_win_pressed() -> void:

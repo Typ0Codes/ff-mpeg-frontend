@@ -2,7 +2,7 @@ extends Control
 
 var documents_path = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 var progress_path = OS.get_user_data_dir() + "/Progress/"
-@onready var outputpath = documents_path + "/GDConvert/"
+@onready var outputpath = Globals.DefaultOutputPath
 var inputfile := ""
 var total_duration_us := 0
 var extension := ".wav"
@@ -36,7 +36,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$"BG Color".material.set_shader_parameter("color1", Globals.GradientColor1)
+	$"BG Color".material.set_shader_parameter("color2", Globals.GradientColor2)
 
 
 #base video command: ffmpeg -i input.mp4 -c:v libx264 -crf 23 -preset medium -c:a aac -b:a 128k -movflags +faststart output.mp4   

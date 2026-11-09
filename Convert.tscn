@@ -21,7 +21,7 @@ content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0.03750939, 0.09221437, 0.039877687, 1)
+bg_color = Color(0, 0, 0, 0.65882355)
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bypvw"]
