@@ -58,3 +58,7 @@ func _on_color_picker_button_2_color_changed(color: Color) -> void:
 
 func _on_mp_3_instead_of_wav_toggled(toggled_on: bool) -> void:
 	Globals.Mp3InsteadOfWav = toggled_on 
+
+
+func _on_save_pressed() -> void:
+	Globals.save_settings()
